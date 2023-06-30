@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DriversComponent } from './components/drivers/drivers.component';
+import { DriverDetailsComponent } from './components/driver-details/driver-details.component';
 
 const routes: Routes = [
-  // Existing routes...
-  { path: 'drivers', component: DriversComponent }
+  { path: '', redirectTo: '/drivers', pathMatch: 'full' },
+  { path: 'drivers', component: DriversComponent },
+  { path: 'drivers/:id', component: DriverDetailsComponent },
 ];
 
 

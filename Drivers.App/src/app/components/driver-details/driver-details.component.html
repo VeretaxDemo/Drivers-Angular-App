@@ -1,0 +1,8 @@
+<h2>Driver Details</h2>
+
+<div *ngIf="driver">
+  <p>Name: {{ driver.name }}</p>
+  <p>Number: {{ driver.number }}</p>
+  <p>Team: {{ driver.team }}</p>
+  <button (click)="goBack()">Back</button>
+</div>
