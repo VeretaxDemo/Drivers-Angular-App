@@ -8,4 +8,6 @@ public interface IDriverRepository
     Task AddAsync(Driver driver);
     Task<Driver> GetByIdAsync(string id);
     Task<List<Driver>> GetAllAsync();
+
+    Task<List<Driver>> SearchByNameAsync(string name);
 }

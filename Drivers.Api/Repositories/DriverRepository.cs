@@ -1,5 +1,7 @@
 ﻿using Drivers.Api.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Xml.Linq;
 
 namespace Drivers.Api.Repositories;
 
@@ -39,4 +41,12 @@ public class DriverRepository : IDriverRepository
     {
         await _driversCollection.InsertOneAsync(driver);
     }
+
+    public async Task<List<Driver>> SearchByNameAsync(string name)
+    {
+        var filter = Builders<Driver>.Filter.Regex(driver => driver.Name, new BsonRegularExpression(name, "i"));
+        return await _driversCollection.Find(filter).ToListAsync();
+    }
+
+
 }

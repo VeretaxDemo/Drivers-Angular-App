@@ -4,6 +4,7 @@ using Drivers.Api.Repositories;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Collections.Generic;
 
 namespace Drivers.Api.Services;
 
@@ -40,8 +41,7 @@ public class DriverService
 
     public async Task<List<Driver>> SearchByNameAsync(string name)
     {
-        var filter = Builders<Driver>.Filter.Regex(driver => driver.Name, new BsonRegularExpression(name, "i"));
-        return await _driversCollection.Find(filter).ToListAsync();
+        return await _driverRepository.SearchByNameAsync(name);
     }
 
     public async Task AddAsync(Driver driver)

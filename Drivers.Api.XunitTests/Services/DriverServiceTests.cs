@@ -147,6 +147,46 @@ namespace Drivers.Api.XunitTests.Services
             mockRepository.Verify(r => r.CheckForDuplicateDriverAsync(driver), Times.Once);
             mockRepository.Verify(r => r.AddAsync(driver), Times.Never);
         }
-    }
 
+        [Fact]
+        public async Task SearchByNameAsync_WhenDriversExist_ShouldReturnMatchingDrivers()
+        {
+            // Arrange
+            var searchName = "John";
+            var expectedDrivers = new List<Driver>
+            {
+                new Driver { Id = "1", Name = "John Doe", Team = "Team A" },
+                new Driver { Id = "2", Name = "John Smith", Team = "Team B" },
+                new Driver { Id = "3", Name = "Mike Johnson", Team = "Team A" }
+            };
+
+            var repositoryMock = new Mock<IDriverRepository>();
+            repositoryMock.Setup(r => r.SearchByNameAsync(searchName)).ReturnsAsync(expectedDrivers);
+
+            var driverService = new DriverService(repositoryMock.Object);
+
+            // Act
+            var result = await driverService.SearchByNameAsync(searchName);
+
+            // Assert
+            result.Should().BeEquivalentTo(expectedDrivers);
+        }
+
+        [Fact]
+        public async Task SearchByNameAsync_WhenNoMatchingDriversExist_ShouldReturnEmptyList()
+        {
+            // Arrange
+            var searchName = "John";
+            var repositoryMock = new Mock<IDriverRepository>();
+            repositoryMock.Setup(r => r.SearchByNameAsync(searchName)).ReturnsAsync(new List<Driver>());
+
+            var driverService = new DriverService(repositoryMock.Object);
+
+            // Act
+            var result = await driverService.SearchByNameAsync(searchName);
+
+            // Assert
+            result.Should().BeEmpty();
+        }
+    }
 }
