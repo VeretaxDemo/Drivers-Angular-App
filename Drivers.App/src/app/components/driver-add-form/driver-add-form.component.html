@@ -1,21 +1,24 @@
 <div class="form-container">
   <h2>Add Driver</h2>
-  <form (ngSubmit)="onSubmit()" class="driver-form">
-    <div class="form-group">
+  <form (ngSubmit)="onSubmit()" class="driver-form" #addDriverForm="ngForm">
+    <div class="form-group" ngModelGroup="driverInfo">
       <label for="name">Name:</label>
-      <input type="text" id="name" [(ngModel)]="driver.name" name="name" required>
+      <input type="text" id="name" name="name" [(ngModel)]="driver.name" required>
     </div>
-    <div class="form-group">
+    <div class="form-group" ngModelGroup="driverInfo">
       <label for="number">Number:</label>
-      <input type="text" id="number" [(ngModel)]="driver.number" name="number" required>
+      <input type="text" id="number" name="number" [(ngModel)]="driver.number" required>
     </div>
-    <div class="form-group">
+    <div class="form-group" ngModelGroup="driverInfo">
       <label for="team">Team:</label>
-      <input type="text" id="team" [(ngModel)]="driver.team" name="team" required>
+      <input type="text" id="team" name="team" [(ngModel)]="driver.team" required>
+    </div>
+    <div *ngIf="addDriverForm.submitted && addDriverForm.invalid" class="error-message">
+      All fields are required.
     </div>
     <div class="button-group">
-      <button type="submit"  class="add-button" >Add Driver</button>
-      <button type="button" class="cancel-button"  (click)="onCancel()">Cancel</button>
+      <button type="submit" class="add-button">Add Driver</button>
+      <button type="button" class="cancel-button" (click)="onCancel()">Cancel</button>
     </div>
   </form>
 </div>

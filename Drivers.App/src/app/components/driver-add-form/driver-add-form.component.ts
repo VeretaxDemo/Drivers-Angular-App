@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Driver } from '../../models/driver';
 import { DriverService } from '../../services/driver.service';
 
@@ -10,10 +11,23 @@ import { DriverService } from '../../services/driver.service';
 })
 export class DriverAddFormComponent {
   driver: Driver = new Driver();
-
-  constructor(private driverService: DriverService, private router: Router) {}
+  driverForm: FormGroup;
+  constructor(private driverService: DriverService, private router: Router) {
+    this.driverForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      number: new FormControl('', Validators.required),
+      team: new FormControl('', Validators.required)
+    });
+  }
 
   onSubmit() {
+    // Check if the form is valid
+    if (this.driverForm.invalid) {
+      // Mark all fields as touched to display validation errors
+      this.driverForm.markAllAsTouched();
+      return;
+    }
+
     // Handle the form submission logic here
     // For example, you can send the form data to an API or perform any desired action
     console.log(this.driver); // Log the driver object to the console
@@ -22,6 +36,9 @@ export class DriverAddFormComponent {
       response => {
         // Handle successful response here
         console.log('Driver inserted:', response);
+
+        // Route to the driver-detail component with the inserted driver's ID
+        this.router.navigate(['/drivers', response.id]);
       },
       error => {
         // Handle error response here

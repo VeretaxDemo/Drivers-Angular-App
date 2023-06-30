@@ -27,4 +27,9 @@ export class DriverService {
     return this.http.post<any>(`${environment.apiUrl}/${this.url}`, driver);
 
   }
+
+  //public checkDuplicateDriver(driver: Driver): Observable<boolean> {
+  //  // Send a request to the API to check for duplicate driver
+  //  // Return an Observable<boolean> indicating if a duplicate driver exists
+  //}
 }
