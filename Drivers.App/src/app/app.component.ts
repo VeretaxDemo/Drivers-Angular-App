@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Driver } from './models/driver';
-import { DriverService } from './services/driver.service'
+
 
 @Component({
   selector: 'app-root',
@@ -10,13 +9,13 @@ import { DriverService } from './services/driver.service'
 export class AppComponent {
   title = 'Drivers.App';
 
-  drivers: Driver[] = [];
 
-  constructor(private driverService: DriverService) {
+
+  constructor() {
 
   }
 
   ngOnInit(): void {
-    this.driverService.getDrivers().subscribe((result: Driver[]) => (this.drivers = result));
+
   }
 }
