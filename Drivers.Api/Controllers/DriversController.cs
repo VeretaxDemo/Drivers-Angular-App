@@ -17,8 +17,6 @@ public class DriversController : ControllerBase
         _driverService = driverService;
     }
 
-
-
     public static bool TestMongoDBConnection(string connectionString)
     {
         try
@@ -34,8 +32,7 @@ public class DriversController : ControllerBase
         }
     }
 
-
-[HttpGet]
+    [HttpGet]
     public async Task<IActionResult> GetDrivers()
     {
         string connectionString = "mongodb://localhost:27717";
@@ -54,4 +51,34 @@ public class DriversController : ControllerBase
 
         return Ok(drivers);
     }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Driver>> GetById(string id)
+    {
+        var driver = await _driverService.GetByIdAsync(id);
+        if (driver == null)
+        {
+            return NotFound();
+        }
+        return driver;
+    }
+
+    [HttpGet("search")]
+    public async Task<ActionResult<List<Driver>>> SearchByName([FromQuery] string name)
+    {
+        var drivers = await _driverService.SearchByNameAsync(name);
+        if (drivers == null || drivers.Count == 0)
+        {
+            return NotFound();
+        }
+        return drivers;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Driver>> AddDriver(Driver driver)
+    {
+        await _driverService.AddAsync(driver);
+        return CreatedAtAction(nameof(GetById), new { id = driver.Id }, driver);
+    }
+
 }
