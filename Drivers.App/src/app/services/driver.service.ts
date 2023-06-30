@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Driver } from '../models/driver';
-//import { DRIVERS } from '../data/drivers.data';
+
 
 @Injectable({
   providedIn: 'root'
