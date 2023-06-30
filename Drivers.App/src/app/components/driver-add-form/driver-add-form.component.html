@@ -3,7 +3,7 @@
   <form (ngSubmit)="onSubmit()" class="driver-form">
     <div class="form-group">
       <label for="name">Name:</label>
-      <input type="text" id="name" [(ngModel)]="driver.name"  name="name" required>
+      <input type="text" id="name" [(ngModel)]="driver.name" name="name" required>
     </div>
     <div class="form-group">
       <label for="number">Number:</label>
@@ -11,8 +11,11 @@
     </div>
     <div class="form-group">
       <label for="team">Team:</label>
-      <input type="text" id="team" [(ngModel)]="driver.team"  name="team" required>
+      <input type="text" id="team" [(ngModel)]="driver.team" name="team" required>
     </div>
-    <button type="submit">Add Driver</button>
+    <div class="button-group">
+      <button type="submit"  class="add-button" >Add Driver</button>
+      <button type="button" class="cancel-button"  (click)="onCancel()">Cancel</button>
+    </div>
   </form>
 </div>

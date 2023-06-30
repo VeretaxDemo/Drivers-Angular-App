@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Driver } from '../../models/driver';
 import { DriverService } from '../../services/driver.service';
 
@@ -10,7 +11,7 @@ import { DriverService } from '../../services/driver.service';
 export class DriverAddFormComponent {
   driver: Driver = new Driver();
 
-  constructor(private driverService: DriverService) {}
+  constructor(private driverService: DriverService, private router: Router) {}
 
   onSubmit() {
     // Handle the form submission logic here
@@ -27,5 +28,11 @@ export class DriverAddFormComponent {
         console.error('Failed to insert driver:', error);
       }
     );
+  }
+
+  onCancel() {
+    // Handle the cancel button click here
+    // For example, navigate back to the drivers page
+    this.router.navigate(['/drivers']); // Replace '/drivers' with the actual route of the drivers page
   }
 }
