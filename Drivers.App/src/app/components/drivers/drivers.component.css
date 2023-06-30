@@ -1,0 +1,26 @@
+.driver-row {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.driver-row:hover {
+  background-color: #f0f0f0; /* Update with your desired background color */
+  cursor: pointer;
+}
+
+.driver-cell {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.add-driver-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.add-driver-button {
+  /* Add any additional styling for the button */
+}
+
