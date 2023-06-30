@@ -13,6 +13,7 @@ export class DriverAddFormComponent {
   driver: Driver = new Driver();
   driverForm: FormGroup;
   isSubmitted: boolean = false;
+  errorMessage: string = '';
 
   constructor(private driverService: DriverService, private router: Router) {
     this.driverForm = new FormGroup({
@@ -51,6 +52,16 @@ export class DriverAddFormComponent {
       error => {
         // Handle error response here
         console.error('Failed to insert driver:', error);
+        // Display error message to the user
+        if (error.status === 0) {
+          // Service is unavailable
+          this.errorMessage = 'System is currently unavailable. Please try again later.';
+          console.log('System is currently unavailable. Please try again later.');
+        } else {
+          // Other error occurred
+          this.errorMessage = 'An error occurred while inserting the driver. Please try again.';
+          console.log('An error occurred while inserting the driver. Please try again.');
+        }
       }
     );
   }

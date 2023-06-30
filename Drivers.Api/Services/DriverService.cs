@@ -10,7 +10,7 @@ public class DriverService
 {
     private readonly IMongoCollection<Driver> _driversCollection;
 
-    public DriverService(IOptions<DatabaseSettings> databaseSettings)
+    public DriverService(IOptions<DatabaseSettings> databaseSettings, IMongoCollection<Driver> driversCollection)
     {
         // Initialize my mongodb client
         var mongoClient = new MongoClient(databaseSettings.Value.ConnectionString);
@@ -19,7 +19,8 @@ public class DriverService
         var mongoDb = mongoClient.GetDatabase(databaseSettings.Value.DatabaseName);
 
         // Connect db Collection to Driver
-        _driversCollection = mongoDb.GetCollection<Driver>(databaseSettings.Value.CollectionName);
+        //_driversCollection = mongoDb.GetCollection<Driver>(databaseSettings.Value.CollectionName);
+        _driversCollection = driversCollection;
     }
 
     public async Task<List<Driver>> GetAsync() => await _driversCollection.Find(_ => true).ToListAsync();
@@ -37,7 +38,24 @@ public class DriverService
 
     public async Task AddAsync(Driver driver)
     {
+        bool isDuplicate = await CheckForDuplicateDriverAsync(driver);
+
+        if (isDuplicate)
+        {
+            throw new ApplicationException("Duplicate driver found. Please provide a unique name or team name.");
+        }
+
         await _driversCollection.InsertOneAsync(driver);
+    }
+
+    public async Task<bool> CheckForDuplicateDriverAsync(Driver driver)
+    {
+        // Logic to check for duplicate driver based on name or team
+        bool isDuplicate = await _driversCollection
+            .Find(d => d.Name == driver.Name || d.Team == driver.Team)
+            .AnyAsync();
+
+        return isDuplicate;
     }
 
 }

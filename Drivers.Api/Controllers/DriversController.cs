@@ -74,11 +74,29 @@ public class DriversController : ControllerBase
         return drivers;
     }
 
+    [HttpGet]
+
+
     [HttpPost]
     public async Task<ActionResult<Driver>> AddDriver(Driver driver)
     {
-        await _driverService.AddAsync(driver);
-        return CreatedAtAction(nameof(GetById), new { id = driver.Id }, driver);
+        try
+        {
+            bool isDuplicate = await _driverService.CheckForDuplicateDriverAsync(driver);
+            if (isDuplicate)
+            {
+                return BadRequest("Duplicate driver found.");
+            }
+            await _driverService.AddAsync(driver);
+            return CreatedAtAction(nameof(GetById), new { id = driver.Id }, driver);
+        }
+        catch (ApplicationException ex)
+        {
+            // Handle the ApplicationException and return a suitable response
+            return StatusCode(500, "An error occurred while adding the driver.");
+            // note we could do this by passing the internal exception message
+            // however, it might leak internals of the api. return BadRequest(ex.Message);
+        }
     }
 
 }

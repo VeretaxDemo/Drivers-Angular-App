@@ -1,6 +1,8 @@
 <div class="form-container">
   <h2>Add Driver</h2>
   <form (ngSubmit)="onSubmit()" [formGroup]="driverForm" class="driver-form">
+    <!-- Display error message -->
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
     <div class="form-group">
       <label for="name">Name:</label>
       <!--<input type="text" id="name" name="name" [(ngModel)]="driver.name" required>-->
