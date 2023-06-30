@@ -322,3 +322,23 @@ svg#clouds {
 .link:hover {
   background-color: #0056b3;
 }
+
+.button-group {
+  margin-top: 10px;
+}
+
+.add-button {
+  margin-right: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.cancel-button {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
