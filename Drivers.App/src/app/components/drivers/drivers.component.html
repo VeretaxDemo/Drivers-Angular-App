@@ -1,7 +1,7 @@
 <p>drivers works!</p>
 <h2>Drivers</h2>
 <a routerLink="/drivers">Drivers Listing</a>
-<table>
+<!--<table>
   <thead>
   <th>Id</th>
   <th>Name</th>
@@ -9,11 +9,28 @@
   <th>Team</th>
   </thead>
   <tbody>
+    <tr *ngFor="let driver of drivers">
+      <td>{{ driver.id }}</td>
+      <td>{{ driver.name }}</td>
+      <td>{{ driver.number }}</td>
+      <td>{{ driver.team }}</td>
+    </tr>
+  </tbody>
+</table>-->
+
+<table>
+  <tbody>
   <tr *ngFor="let driver of drivers">
-    <td>{{ driver.id }}</td>
-    <td>{{ driver.name }}</td>
+    <td (click)="showDriverDetails(driver)">{{ driver.name }}</td>
     <td>{{ driver.number }}</td>
     <td>{{ driver.team }}</td>
   </tr>
   </tbody>
 </table>
+
+<div *ngIf="selectedDriver">
+  <h3>Name: {{ selectedDriver.name }}</h3>
+  <p>Number: {{ selectedDriver.number }}</p>
+  <p>Team: {{ selectedDriver.team }}</p>
+  <button (click)="goBack()">Back</button>
+</div>

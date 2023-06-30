@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Driver } from '../../models/driver';
 import { DriverService } from '../../services/driver.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-drivers',
@@ -10,8 +11,9 @@ import { DriverService } from '../../services/driver.service'
 export class DriversComponent {
 
   drivers: Driver[] = [];
+  selectedDriver: Driver | undefined;
 
-  constructor(private driverService: DriverService) {
+  constructor(private driverService: DriverService, private router: Router) {
 
   }
 
@@ -19,4 +21,11 @@ export class DriversComponent {
     this.driverService.getDrivers().subscribe((result: Driver[]) => (this.drivers = result));
   }
 
+  showDriverDetails(driver: Driver): void {
+    this.selectedDriver = driver;
+  }
+
+  goBack(): void {
+    this.selectedDriver = undefined;
+  }
 }
