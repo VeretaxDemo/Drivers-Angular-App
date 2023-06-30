@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DriversComponent } from './components/drivers/drivers.component';
 import { DriverDetailsComponent } from './components/driver-details/driver-details.component';
 import { DriverAddFormComponent } from './components/driver-add-form/driver-add-form.component';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import FormsModule
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

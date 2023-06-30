@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Driver } from '../../models/driver';
 import { DriverService } from '../../services/driver.service';
 
@@ -12,6 +12,8 @@ import { DriverService } from '../../services/driver.service';
 export class DriverAddFormComponent {
   driver: Driver = new Driver();
   driverForm: FormGroup;
+  isSubmitted: boolean = false;
+
   constructor(private driverService: DriverService, private router: Router) {
     this.driverForm = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -21,12 +23,18 @@ export class DriverAddFormComponent {
   }
 
   onSubmit() {
+    this.isSubmitted = true;
     // Check if the form is valid
     if (this.driverForm.invalid) {
       // Mark all fields as touched to display validation errors
       this.driverForm.markAllAsTouched();
       return;
     }
+
+    // Update the driver object with the form field values
+    this.driver.name = this.driverForm.value.name;
+    this.driver.number = this.driverForm.value.number;
+    this.driver.team = this.driverForm.value.team;
 
     // Handle the form submission logic here
     // For example, you can send the form data to an API or perform any desired action
