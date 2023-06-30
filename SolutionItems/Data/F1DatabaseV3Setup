@@ -1,0 +1,27 @@
+ use F1DatabaseV3
+
+ db.createCollection('Drivers');
+
+ db.createCollection('Drivers');
+ db.Drivers.insertMany([{"Name":"Lewis Hamilton", "Number": 44, "Team":"Mercedes-AMG Petronas"},{"Name":"George Russel","Number": 63, "Team":"Mercedes-AMG Petronas"}]);
+
+ db.Drivers.find().pretty();
+
+
+ SHould produce this result:
+
+ F1DatabaseV3> db.Drivers.find().pretty();
+[
+  {
+    _id: ObjectId("649c3c849fb4a6598223c018"),
+    Name: 'Lewis Hamilton',
+    Number: 44,
+    Team: 'Mercedes-AMG Petronas'
+  },
+  {
+    _id: ObjectId("649c3c849fb4a6598223c019"),
+    Name: 'George Russel',
+    Number: 63,
+    Team: 'Mercedes-AMG Petronas'
+  }
+]

@@ -1,0 +1,21 @@
+.form-container {
+  text-align: center;
+}
+
+.driver-form {
+  display: inline-block;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: inline-block;
+  width: 80px;
+}
+
+.form-group input {
+  width: 200px;
+}

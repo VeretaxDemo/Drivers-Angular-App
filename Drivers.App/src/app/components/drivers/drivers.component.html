@@ -1,9 +1,3 @@
-<!--<div class="header">
-  <h1 class="text-center">Drivers</h1>
-  <div class="text-center">
-    <a class="link" routerLink="/drivers">View Drivers Listing</a>
-  </div>
-</div>-->
 <div>
   <h1 style="text-align: center; margin-top: -15px;margin-bottom: 30px;">Drivers</h1>
 </div>
@@ -16,18 +10,18 @@
     <th>Number</th>
     </thead>
     <tbody>
-    <tr *ngFor="let driver of drivers">
-      <td><a [routerLink]="['/drivers', driver.id]" (click)="showDriverDetails(driver)">View</a></td>
-      <td>{{ driver.name }}</td>
-      <td>{{ driver.number }} ({{ driver.team }})</td>
-    </tr>
+      <tr *ngFor="let driver of drivers">
+        <td><a [routerLink]="['/drivers', driver.id]" (click)="showDriverDetails(driver)">View</a></td>
+        <td>{{ driver.name }}</td>
+        <td>{{ driver.number }} ({{ driver.team }})</td>
+      </tr>
     </tbody>
   </table>
 </div>
 
+<app-driver-add-form></app-driver-add-form>
+<!--<h1>Drivers</h1>
 <div *ngIf="selectedDriver">
-  <h3>Name: {{ selectedDriver.name }}</h3>
-  <p>Number: {{ selectedDriver.number }}</p>
-  <p>Team: {{ selectedDriver.team }}</p>
-  <button (click)="goBack()">Back</button>
-</div>
+<h3>Name: {{ selectedDriver.name }}</h3>
+<p>Number: {{ selectedDriver.number }}</p>
+<p>Team: {{ selectedDriver.team }}</p>-->

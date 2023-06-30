@@ -7,18 +7,22 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DriversComponent } from './components/drivers/drivers.component';
 import { DriverDetailsComponent } from './components/driver-details/driver-details.component';
+import { DriverAddFormComponent } from './components/driver-add-form/driver-add-form.component';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
 
 @NgModule({
   declarations: [
     AppComponent,
     DriversComponent,
-    DriverDetailsComponent
+    DriverDetailsComponent,
+    DriverAddFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
