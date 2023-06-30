@@ -19,9 +19,13 @@
   </table>
 </div>
 
-<app-driver-add-form></app-driver-add-form>
+<!--<app-driver-add-form></app-driver-add-form>-->
 <!--<h1>Drivers</h1>
 <div *ngIf="selectedDriver">
 <h3>Name: {{ selectedDriver.name }}</h3>
 <p>Number: {{ selectedDriver.number }}</p>
 <p>Team: {{ selectedDriver.team }}</p>-->
+
+<div class="add-driver-button-container">
+  <button class="add-driver-button" (click)="goToAddForm()">Add Driver</button>
+</div>
