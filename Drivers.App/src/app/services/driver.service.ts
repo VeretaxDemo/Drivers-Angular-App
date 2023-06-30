@@ -11,8 +11,9 @@ import { Driver } from '../models/driver';
 export class DriverService {
 
   url = "Drivers";
+  driverId: string | undefined;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public getDrivers(): Observable<Driver[]> {
     return this.http.get<Driver[]>(`${environment.apiUrl}/${this.url}`);
@@ -21,20 +22,9 @@ export class DriverService {
   public getDriver(driverId: number): Observable<Driver> {
     return this.http.get<Driver>(`${environment.apiUrl}/${this.url}/${driverId}`);
   }
-  //getDrivers(): Observable<Driver[]> {
-  //  return of(DRIVERS);
-  //}
 
-  //getDriver(driverId: number): Observable<Driver | undefined> {
-  //  return of(DRIVERS.find(driver => driver.id === driverId));
-  //}
+  public insertDriver(driver: Driver): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/${this.url}`, driver);
 
-  //url = "Drivers";
-
-  //constructor(private http: HttpClient) { }
-
-  //public getDrivers() : Observable<Driver[]> {
-
-  //  return this.http.get<Driver[]>(`${environment.apiUrl}/${this.url}`);
-  //}
+  }
 }
