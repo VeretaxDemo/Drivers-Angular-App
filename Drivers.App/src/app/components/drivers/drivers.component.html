@@ -19,12 +19,17 @@
 </table>-->
 
 <table>
+  <thead>
+  <th>Driver</th>
+  <th>Number</th>
+  <th>Team</th>
+  </thead>
   <tbody>
-  <tr *ngFor="let driver of drivers">
-    <td (click)="showDriverDetails(driver)">{{ driver.name }}</td>
-    <td>{{ driver.number }}</td>
-    <td>{{ driver.team }}</td>
-  </tr>
+    <tr *ngFor="let driver of drivers">
+      <td (click)="showDriverDetails(driver)">{{ driver.name }}</td>
+      <td>{{ driver.number }}</td>
+      <td>{{ driver.team }}</td>
+    </tr>
   </tbody>
 </table>
 
