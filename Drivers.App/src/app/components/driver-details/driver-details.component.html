@@ -1,8 +1,26 @@
-<h2>Driver Details</h2>
-
-<div *ngIf="driver">
-  <p>Name: {{ driver.name }}</p>
-  <p>Number: {{ driver.number }}</p>
-  <p>Team: {{ driver.team }}</p>
-  <button (click)="goBack()">Back</button>
+<div>
+  <h1 style="text-align: center; margin-top: -15px; margin-bottom: 30px;">Drivers</h1>
 </div>
+<div>
+  <h2 style="text-align: center; margin-top: -15px; margin-bottom: 30px;">Driver Details</h2>
+</div>
+
+<div class="driver-details" *ngIf="driver">
+  <div *ngIf="driver">
+    <div class="detail-row">
+      <div class="label-column">Name:</div>
+      <div class="data-column">{{ driver.name }}</div>
+    </div>
+    <div class="detail-row">
+      <div class="label-column">Number:</div>
+      <div class="data-column">{{ driver.number }}</div>
+    </div>
+    <div class="detail-row">
+      <div class="label-column">Team:</div>
+      <div class="data-column">{{ driver.team }}</div>
+    </div>
+    <button (click)="goBack()">Back</button>
+  </div>
+</div>
+
+

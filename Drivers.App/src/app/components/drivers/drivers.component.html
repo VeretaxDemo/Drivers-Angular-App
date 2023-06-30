@@ -1,21 +1,29 @@
-<a routerLink="/drivers">Drivers Listing</a>
+<!--<div class="header">
+  <h1 class="text-center">Drivers</h1>
+  <div class="text-center">
+    <a class="link" routerLink="/drivers">View Drivers Listing</a>
+  </div>
+</div>-->
+<div>
+  <h1 style="text-align: center; margin-top: -15px;margin-bottom: 30px;">Drivers</h1>
+</div>
+<div class="table-container">
 
-<h2>Drivers</h2>
-<table>
-  <thead>
-  <th>View</th>
-  <th>Name</th>
-  <th>Number</th>
-  </thead>
-  <tbody>
-  <tr *ngFor="let driver of drivers">
-    <td><a [routerLink]="['/drivers', driver.id]" (click)="showDriverDetails(driver)">View</a></td>
-    <td>{{ driver.name }}</td>
-    <td>{{ driver.number }} ({{ driver.team }})</td>
-  </tr>
-  </tbody>
-</table>
-
+  <table>
+    <thead>
+    <th>View</th>
+    <th>Name</th>
+    <th>Number</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let driver of drivers">
+      <td><a [routerLink]="['/drivers', driver.id]" (click)="showDriverDetails(driver)">View</a></td>
+      <td>{{ driver.name }}</td>
+      <td>{{ driver.number }} ({{ driver.team }})</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 
 <div *ngIf="selectedDriver">
   <h3>Name: {{ selectedDriver.name }}</h3>

@@ -1,0 +1,24 @@
+.driver-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.label-column {
+  width: 100px;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.data-column {
+  flex-grow: 1;
+  text-align: left;
+}
