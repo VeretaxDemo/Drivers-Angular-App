@@ -5,10 +5,20 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 
 namespace Drivers.Api.Services;
 
-public class DriverService
+public interface IDriverService
+{
+    Task<List<Driver>> GetAsync();
+    Task<Driver> GetByIdAsync(string id);
+    Task<List<Driver>> SearchByNameAsync(string name);
+    Task AddAsync(Driver driver);
+    Task<bool> CheckForDuplicateDriverAsync(Driver driver);
+}
+
+public class DriverService : IDriverService
 {
     private readonly IDriverRepository _driverRepository;
     private readonly IMongoCollection<Driver> _driversCollection;
@@ -26,6 +36,7 @@ public class DriverService
     //    _driversCollection = driversCollection;
     //}
 
+    [ImportingConstructor]
     public DriverService(IDriverRepository driverRepository)
     {
         _driverRepository = driverRepository;

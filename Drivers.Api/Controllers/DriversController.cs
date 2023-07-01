@@ -9,9 +9,9 @@ namespace Drivers.Api.Controllers;
 [Route("api/[controller]")]
 public class DriversController : ControllerBase
 {
-    private readonly ILogger<WeatherForecastController> _logger;
-    private readonly DriverService _driverService;
-    public DriversController(ILogger<WeatherForecastController> logger, DriverService driverService)
+    private readonly ILogger<DriversController> _logger;
+    private readonly IDriverService _driverService;
+    public DriversController(ILogger<DriversController> logger, IDriverService driverService)
     {
         _logger = logger;
         _driverService = driverService;
@@ -73,9 +73,6 @@ public class DriversController : ControllerBase
         }
         return drivers;
     }
-
-    [HttpGet]
-
 
     [HttpPost]
     public async Task<ActionResult<Driver>> AddDriver(Driver driver)
