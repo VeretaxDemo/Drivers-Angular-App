@@ -67,5 +67,16 @@ public class DriverService : IDriverService
 
         return isDuplicate;
     }
+    public async Task<bool> RemoveAsync(string id)
+    {
+        var driver = await _driverRepository.GetByIdAsync(id);
+        if (driver == null)
+        {
+            throw new ApplicationException("Driver not found.");
+        }
+
+        return await _driverRepository.RemoveAsync(id);
+    }
+
 
 }

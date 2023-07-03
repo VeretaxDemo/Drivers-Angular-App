@@ -10,4 +10,5 @@ public interface IDriverRepository
     Task<List<Driver>> GetAllAsync();
 
     Task<List<Driver>> SearchByNameAsync(string name);
+    Task<bool> RemoveAsync(string id);
 }

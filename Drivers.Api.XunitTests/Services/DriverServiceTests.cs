@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Moq;
 using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -25,10 +26,12 @@ namespace Drivers.Api.XunitTests.Services
                 new Driver { Id = "3", Name = "Mike Johnson", Team = "Team A" }
             };
 
-            var repositoryMock = new Mock<IDriverRepository>();
-            repositoryMock.Setup(r => r.GetAllAsync()).ReturnsAsync(expectedDrivers);
+            var mockRepository = new Mock<IDriverRepository>();
+            mockRepository.Setup(r => r.GetAllAsync()).ReturnsAsync(expectedDrivers);
 
-            var driverService = new DriverService(repositoryMock.Object);
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
 
             // Act
             var result = await driverService.GetAsync();
@@ -41,10 +44,12 @@ namespace Drivers.Api.XunitTests.Services
         public async Task GetAsync_WhenNoDriversExist_ShouldReturnEmptyList()
         {
             // Arrange
-            var repositoryMock = new Mock<IDriverRepository>();
-            repositoryMock.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Driver>());
+            var mockRepository = new Mock<IDriverRepository>();
+            mockRepository.Setup(r => r.GetAllAsync()).ReturnsAsync(new List<Driver>());
 
-            var driverService = new DriverService(repositoryMock.Object);
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
 
             // Act
             var result = await driverService.GetAsync();
@@ -58,7 +63,9 @@ namespace Drivers.Api.XunitTests.Services
         {
             // Arrange
             var mockRepository = new Mock<IDriverRepository>();
-            var driverService = new DriverService(mockRepository.Object);
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
+
 
             var driverId = "1";
             var expectedDriver = new Driver { Id = driverId, Name = "John Doe", Team = "Team A" };
@@ -79,6 +86,9 @@ namespace Drivers.Api.XunitTests.Services
         {
             // Arrange
             var mockRepository = new Mock<IDriverRepository>();
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
+
 
             string driverId = "-1";
 
@@ -91,7 +101,7 @@ namespace Drivers.Api.XunitTests.Services
             mockRepository
                 .Setup(r => r.GetByIdAsync(It.IsAny<string>()))
                 .ReturnsAsync((string id) => drivers.FirstOrDefault(d => d.Id == id));
-            var driverService = new DriverService(mockRepository.Object);
+
             var invalidId = "invalid_id";
 
             // Act
@@ -108,7 +118,8 @@ namespace Drivers.Api.XunitTests.Services
         {
             // Arrange
             var mockRepository = new Mock<IDriverRepository>();
-            var driverService = new DriverService(mockRepository.Object);
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
 
             var driver = new Driver { Name = "John Doe", Team = "Team A" };
 
@@ -130,7 +141,9 @@ namespace Drivers.Api.XunitTests.Services
         {
             // Arrange
             var mockRepository = new Mock<IDriverRepository>();
-            var driverService = new DriverService(mockRepository.Object);
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
+
 
             var driver = new Driver { Name = "John Doe", Team = "Team A" };
 
@@ -160,10 +173,11 @@ namespace Drivers.Api.XunitTests.Services
                 new Driver { Id = "3", Name = "Mike Johnson", Team = "Team A" }
             };
 
-            var repositoryMock = new Mock<IDriverRepository>();
-            repositoryMock.Setup(r => r.SearchByNameAsync(searchName)).ReturnsAsync(expectedDrivers);
+            var mockRepository = new Mock<IDriverRepository>();
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+            mockRepository.Setup(r => r.SearchByNameAsync(searchName)).ReturnsAsync(expectedDrivers);
 
-            var driverService = new DriverService(repositoryMock.Object);
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
 
             // Act
             var result = await driverService.SearchByNameAsync(searchName);
@@ -177,16 +191,111 @@ namespace Drivers.Api.XunitTests.Services
         {
             // Arrange
             var searchName = "John";
-            var repositoryMock = new Mock<IDriverRepository>();
-            repositoryMock.Setup(r => r.SearchByNameAsync(searchName)).ReturnsAsync(new List<Driver>());
+            var mockRepository = new Mock<IDriverRepository>();
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+            mockRepository.Setup(r => r.SearchByNameAsync(searchName)).ReturnsAsync(new List<Driver>());
 
-            var driverService = new DriverService(repositoryMock.Object);
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
 
             // Act
             var result = await driverService.SearchByNameAsync(searchName);
 
             // Assert
             result.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task CheckForDuplicateDriverAsync_WhenDuplicateDriverExists_ShouldReturnTrue()
+        {
+            // Arrange
+            var mockRepository = new Mock<IDriverRepository>();
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
+
+            var driver = new Driver { Name = "John Doe", Team = "Team A" };
+
+            mockRepository
+                .Setup(r => r.CheckForDuplicateDriverAsync(driver))
+                .ReturnsAsync(true);
+
+            // Act
+            var result = await driverService.CheckForDuplicateDriverAsync(driver);
+
+            // Assert
+            result.Should().BeTrue();
+            mockRepository.Verify(r => r.CheckForDuplicateDriverAsync(driver), Times.Once);
+        }
+
+        [Fact]
+        public async Task CheckForDuplicateDriverAsync_WhenNoDuplicateDriverExists_ShouldReturnFalse()
+        {
+            // Arrange
+            var mockRepository = new Mock<IDriverRepository>();
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
+
+            var driver = new Driver { Name = "John Doe", Team = "Team A" };
+
+            // Set up the mock repository method to return false
+            mockRepository
+                .Setup(r => r.CheckForDuplicateDriverAsync(driver))
+                .ReturnsAsync(false);
+
+            // Act
+            var result = await driverService.CheckForDuplicateDriverAsync(driver);
+
+            // Assert
+            result.Should().BeFalse();
+            mockRepository.Verify(r => r.CheckForDuplicateDriverAsync(driver), Times.Once);
+        }
+
+        [Fact]
+        public async Task RemoveAsync_WhenDriverExists_ShouldReturnTrue()
+        {
+            // Arrange
+            var mockRepository = new Mock<IDriverRepository>();
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
+
+            var driverId = "123";
+
+            mockRepository
+                .Setup(r => r.GetByIdAsync(driverId))
+                .ReturnsAsync(new Driver { Id = driverId });
+
+            mockRepository
+                .Setup(r => r.RemoveAsync(driverId))
+                .ReturnsAsync(true);
+
+            // Act
+            var result = await driverService.RemoveAsync(driverId);
+
+            // Assert
+            result.Should().BeTrue();
+            mockRepository.Verify(r => r.RemoveAsync(driverId), Times.Once);
+        }
+
+        [Fact]
+        public async Task RemoveAsync_WhenDriverDoesNotExist_ShouldThrowApplicationException()
+        {
+            // Arrange
+            var mockRepository = new Mock<IDriverRepository>();
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
+
+            var driverId = "123";
+
+            mockRepository
+                .Setup(r => r.GetByIdAsync(driverId))
+                .ReturnsAsync((Driver)null);
+
+            // Act
+            var action = new Func<Task>(() => driverService.RemoveAsync(driverId));
+
+            // Assert
+            await action.Should().ThrowAsync<ApplicationException>()
+                .WithMessage("Driver not found.");
+            mockRepository.Verify(r => r.RemoveAsync(driverId), Times.Never);
         }
     }
 }
