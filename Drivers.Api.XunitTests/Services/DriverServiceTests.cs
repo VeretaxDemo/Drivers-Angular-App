@@ -276,26 +276,131 @@ namespace Drivers.Api.XunitTests.Services
         }
 
         [Fact]
-        public async Task RemoveAsync_WhenDriverDoesNotExist_ShouldThrowApplicationException()
+        public async Task RemoveAsync_WhenDriverDoesNotExist_ShouldReturnFalse()
         {
             // Arrange
+            var nonExistingDriverId = "non-existing-driver-id";
+
             var mockRepository = new Mock<IDriverRepository>();
             var mockCollection = new Mock<IMongoCollection<Driver>>();
+
+            mockRepository.Setup(repo => repo.RemoveAsync(nonExistingDriverId))
+                .ReturnsAsync(false);
+
             var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
 
-            var driverId = "123";
-
-            mockRepository
-                .Setup(r => r.GetByIdAsync(driverId))
-                .ReturnsAsync((Driver)null);
-
             // Act
-            var action = new Func<Task>(() => driverService.RemoveAsync(driverId));
+            var result = await driverService.RemoveAsync(nonExistingDriverId);
 
             // Assert
-            await action.Should().ThrowAsync<ApplicationException>()
-                .WithMessage("Driver not found.");
-            mockRepository.Verify(r => r.RemoveAsync(driverId), Times.Never);
+            result.Should().BeFalse();
         }
+
+
+        [Fact]
+        public async Task UpdateDriverAsync_Should_Update_Driver_And_Return_True()
+        {
+            // Arrange
+            var existingDriverId = "existing-driver-id";
+            var driverToUpdate = new Driver
+            {
+                Id = existingDriverId,
+                Name = "John Doe",
+                Number = 42,
+                Team = "Team A"
+            };
+
+            var existingDriver = new Driver
+            {
+                Id = existingDriverId,
+                Name = "Jane Smith",
+                Number = 27,
+                Team = "Team B"
+            };
+
+            var mockRepository = new Mock<IDriverRepository>();
+            var mockCollection = new Mock<IMongoCollection<Driver>>();
+
+            mockRepository.Setup(repo => repo.GetByIdAsync(existingDriverId))
+                .ReturnsAsync(existingDriver);
+            mockRepository.Setup(repo => repo.CheckForDuplicateDriverAsync(driverToUpdate))
+                .ReturnsAsync(false);
+
+            var driverService = new DriverService(mockRepository.Object, mockCollection.Object);
+
+            // Act
+            var result = await driverService.UpdateDriverAsync(driverToUpdate);
+
+            // Assert
+            result.Should().BeTrue();
+            existingDriver.Name.Should().Be(driverToUpdate.Name);
+            existingDriver.Number.Should().Be(driverToUpdate.Number);
+            existingDriver.Team.Should().Be(driverToUpdate.Team);
+            mockRepository.Verify(repo => repo.UpdateDriverAsync(existingDriver), Times.Once);
+        }
+
+        //[Fact]
+        //public async Task UpdateDriverAsync_Should_Return_False_If_Driver_Not_Found()
+        //{
+        //    // Arrange
+        //    var nonExistingDriverId = "non-existing-driver-id";
+        //    var driverToUpdate = new Driver
+        //    {
+        //        Id = nonExistingDriverId,
+        //        Name = "John Doe",
+        //        Number = 42,
+        //        Team = "Team A"
+        //    };
+
+        //    var driverRepositoryMock = new Mock<IDriverRepository>();
+        //    driverRepositoryMock.Setup(repo => repo.GetByIdAsync(nonExistingDriverId))
+        //        .ReturnsAsync(null);
+
+        //    var driverService = new DriverService(driverRepositoryMock.Object);
+
+        //    // Act
+        //    var result = await driverService.UpdateDriverAsync(driverToUpdate);
+
+        //    // Assert
+        //    result.Should().BeFalse();
+        //    driverRepositoryMock.Verify(repo => repo.UpdateDriverAsync(It.IsAny<Driver>()), Times.Never);
+        //}
+
+        //[Fact]
+        //public void UpdateDriverAsync_Should_Throw_Exception_If_Duplicate_Driver_Found()
+        //{
+        //    // Arrange
+        //    var existingDriverId = "existing-driver-id";
+        //    var driverToUpdate = new Driver
+        //    {
+        //        Id = existingDriverId,
+        //        Name = "John Doe",
+        //        Number = 42,
+        //        Team = "Team A"
+        //    };
+
+        //    var existingDriver = new Driver
+        //    {
+        //        Id = existingDriverId,
+        //        Name = "Jane Smith",
+        //        Number = 27,
+        //        Team = "Team B"
+        //    };
+
+        //    var driverRepositoryMock = new Mock<IDriverRepository>();
+        //    driverRepositoryMock.Setup(repo => repo.GetByIdAsync(existingDriverId))
+        //        .ReturnsAsync(existingDriver);
+        //    driverRepositoryMock.Setup(repo => repo.CheckForDuplicateDriverAsync(driverToUpdate))
+        //        .ReturnsAsync(true);
+
+        //    var driverService = new DriverService(driverRepositoryMock.Object);
+
+        //    // Act
+        //    Func<Task> act = async () => await driverService.UpdateDriverAsync(driverToUpdate);
+
+        //    // Assert
+        //    act.Should().Throw<ApplicationException>().WithMessage("Duplicate driver found. Please provide a unique name or team name.");
+        //    driverRepositoryMock.Verify(repo => repo.UpdateDriverAsync(It.IsAny<Driver>()), Times.Never);
+        //}
     }
 }

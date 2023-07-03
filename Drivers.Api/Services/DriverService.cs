@@ -79,5 +79,23 @@ public class DriverService : IDriverService
         return await _driverRepository.RemoveAsync(id);
     }
 
+    public async Task<bool> UpdateDriverAsync(Driver driver)
+    {
+        var existingDriver = await _driverRepository.GetByIdAsync(driver.Id);
+        if (existingDriver == null)
+        {
+            return false;
+        }
+
+        // Note that working in this way means driver could be replaced in a car number
+        // on a team without updating the driver ID
+        existingDriver.Name = driver.Name;
+        existingDriver.Number = driver.Number;
+        existingDriver.Team = driver.Team;
+
+        await _driverRepository.UpdateDriverAsync(existingDriver);
+
+        return true;
+    }
 
 }

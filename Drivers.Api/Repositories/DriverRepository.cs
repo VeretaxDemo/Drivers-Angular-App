@@ -1,6 +1,9 @@
 ﻿using Drivers.Api.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
+
 using System.Xml.Linq;
 
 namespace Drivers.Api.Repositories;
@@ -54,6 +57,25 @@ public class DriverRepository : IDriverRepository
         var result = await _driversCollection.DeleteOneAsync(filter);
         return result.DeletedCount > 0;
     }
+
+    public async Task<bool> UpdateDriverAsync(Driver driver)
+    {
+        var filter = Builders<Driver>.Filter.Eq(d => d.Id, driver.Id);
+        var update = Builders<Driver>.Update
+            .Set(d => d.Name, driver.Name)
+            .Set(d => d.Number, driver.Number)
+            .Set(d => d.Team, driver.Team);
+
+        var updateResult = await _driversCollection.UpdateOneAsync(filter, update);
+
+        if (updateResult.ModifiedCount == 0)
+        {
+            throw new Exception("Failed to update the driver.");
+        }
+
+        return true;
+    }
+
 
 
 }

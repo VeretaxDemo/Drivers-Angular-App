@@ -110,4 +110,30 @@ public class DriversController : ControllerBase
         }
     }
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateDriver(string id, Driver driver)
+    {
+        driver.Id = id; // Ensure the ID of the driver to be updated is set correctly
+
+        try
+        {
+            bool isUpdated = await _driverService.UpdateDriverAsync(driver);
+            if (isUpdated)
+            {
+                return NoContent(); // Return 204 No Content if the driver was successfully updated
+            }
+            else
+            {
+                return NotFound($"Unable to update driver with id: {id}. Driver not found"); // Return 404 Not Found if the driver was not found
+            }
+        }
+        catch (ApplicationException ex)
+        {
+            // Handle the ApplicationException and return a suitable response
+            return StatusCode(500, "An error occurred while updating the driver.");
+            // Note: You can customize the error message or return a BadRequest if appropriate
+        }
+    }
+
+
 }
