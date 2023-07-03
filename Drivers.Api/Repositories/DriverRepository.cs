@@ -48,5 +48,12 @@ public class DriverRepository : IDriverRepository
         return await _driversCollection.Find(filter).ToListAsync();
     }
 
+    public async Task<bool> RemoveAsync(string id)
+    {
+        var filter = Builders<Driver>.Filter.Eq(driver => driver.Id, id);
+        var result = await _driversCollection.DeleteOneAsync(filter);
+        return result.DeletedCount > 0;
+    }
+
 
 }

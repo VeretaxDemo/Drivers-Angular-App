@@ -6,17 +6,9 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Data;
 
 namespace Drivers.Api.Services;
-
-public interface IDriverService
-{
-    Task<List<Driver>> GetAsync();
-    Task<Driver> GetByIdAsync(string id);
-    Task<List<Driver>> SearchByNameAsync(string name);
-    Task AddAsync(Driver driver);
-    Task<bool> CheckForDuplicateDriverAsync(Driver driver);
-}
 
 public class DriverService : IDriverService
 {
@@ -37,9 +29,10 @@ public class DriverService : IDriverService
     //}
 
     [ImportingConstructor]
-    public DriverService(IDriverRepository driverRepository)
+    public DriverService(IDriverRepository driverRepository, IMongoCollection<Driver> driversCollection)
     {
         _driverRepository = driverRepository;
+        _driversCollection = driversCollection;
     }
 
 
@@ -70,9 +63,7 @@ public class DriverService : IDriverService
     public async Task<bool> CheckForDuplicateDriverAsync(Driver driver)
     {
         // Logic to check for duplicate driver based on name or team
-        bool isDuplicate = await _driversCollection
-            .Find(d => d.Name == driver.Name || d.Team == driver.Team)
-            .AnyAsync();
+        bool isDuplicate = await _driverRepository.CheckForDuplicateDriverAsync(driver);
 
         return isDuplicate;
     }
