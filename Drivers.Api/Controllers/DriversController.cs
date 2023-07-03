@@ -96,4 +96,18 @@ public class DriversController : ControllerBase
         }
     }
 
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> RemoveDriver(string id)
+    {
+        var result = await _driverService.RemoveAsync(id);
+        if (result)
+        {
+            return NoContent(); // Return 204 No Content if the driver was successfully removed
+        }
+        else
+        {
+            return NotFound($"Unable to remove driver with id: {id}. Driver not found"); // Return 404 Not Found if the driver was not found
+        }
+    }
+
 }

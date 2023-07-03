@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { Observable, throwError} from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Driver } from '../models/driver';
 
@@ -15,6 +16,7 @@ export class DriverService {
 
   constructor(private http: HttpClient) {}
 
+
   public getDrivers(): Observable<Driver[]> {
     return this.http.get<Driver[]>(`${environment.apiUrl}/${this.url}`);
   }
@@ -24,12 +26,15 @@ export class DriverService {
   }
 
   public insertDriver(driver: Driver): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/${this.url}`, driver);
-
+    return this.http.post<any>(`${environment.apiUrl}/${this.url}`, driver).pipe(
+      catchError((error: any) => {
+        if (error.error && error.error.message) {
+          throw new Error(error.error.message);
+        } else {
+          throw new Error('Unknown Error');
+        }
+      })
+    );
   }
 
-  //public checkDuplicateDriver(driver: Driver): Observable<boolean> {
-  //  // Send a request to the API to check for duplicate driver
-  //  // Return an Observable<boolean> indicating if a duplicate driver exists
-  //}
 }

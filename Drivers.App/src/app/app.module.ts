@@ -9,13 +9,15 @@ import { DriversComponent } from './components/drivers/drivers.component';
 import { DriverDetailsComponent } from './components/driver-details/driver-details.component';
 import { DriverAddFormComponent } from './components/driver-add-form/driver-add-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import FormsModule
+import { DriverService } from './services/driver.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     DriversComponent,
     DriverDetailsComponent,
-    DriverAddFormComponent
+    DriverAddFormComponent,
+    DriverService
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import For
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DriverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

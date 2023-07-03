@@ -9,4 +9,5 @@ public interface IDriverService
     Task<List<Driver>> SearchByNameAsync(string name);
     Task AddAsync(Driver driver);
     Task<bool> CheckForDuplicateDriverAsync(Driver driver);
+    Task<bool> RemoveAsync(string id);
 }

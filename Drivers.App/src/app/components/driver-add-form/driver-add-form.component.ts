@@ -42,28 +42,50 @@ export class DriverAddFormComponent {
     console.log(this.driver); // Log the driver object to the console
 
     this.driverService.insertDriver(this.driver).subscribe(
-      response => {
+      (response) => {
         // Handle successful response here
         console.log('Driver inserted:', response);
 
         // Route to the driver-detail component with the inserted driver's ID
         this.router.navigate(['/drivers', response.id]);
       },
-      error => {
+      (error) => {
         // Handle error response here
         console.error('Failed to insert driver:', error);
+
         // Display error message to the user
-        if (error.status === 0) {
-          // Service is unavailable
-          this.errorMessage = 'System is currently unavailable. Please try again later.';
-          console.log('System is currently unavailable. Please try again later.');
+        if (error === 'Duplicate entry') {
+          this.errorMessage = 'Duplicate driver found. Please enter a different driver.';
         } else {
-          // Other error occurred
           this.errorMessage = 'An error occurred while inserting the driver. Please try again.';
-          console.log('An error occurred while inserting the driver. Please try again.');
         }
       }
     );
+
+
+    //this.driverService.insertDriver(this.driver).subscribe(
+    //  response => {
+    //    // Handle successful response here
+    //    console.log('Driver inserted:', response);
+
+    //    // Route to the driver-detail component with the inserted driver's ID
+    //    this.router.navigate(['/drivers', response.id]);
+    //  },
+    //  error => {
+    //    // Handle error response here
+    //    console.error('Failed to insert driver:', error);
+    //    // Display error message to the user
+    //    if (error.status === 0) {
+    //      // Service is unavailable
+    //      this.errorMessage = 'System is currently unavailable. Please try again later.';
+    //      console.log('System is currently unavailable. Please try again later.');
+    //    } else {
+    //      // Other error occurred
+    //      this.errorMessage = 'An error occurred while inserting the driver. Please try again.';
+    //      console.log('An error occurred while inserting the driver. Please try again.');
+    //    }
+    //  }
+    //);
   }
 
   onCancel() {

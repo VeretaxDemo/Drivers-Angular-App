@@ -72,7 +72,8 @@ public class DriverService : IDriverService
         var driver = await _driverRepository.GetByIdAsync(id);
         if (driver == null)
         {
-            throw new ApplicationException("Driver not found.");
+            return false;
+            //throw new ApplicationException("Driver not found.");
         }
 
         return await _driverRepository.RemoveAsync(id);
