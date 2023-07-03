@@ -17,13 +17,13 @@ describe('AppComponent', () => {
   it(`should have as title 'drivers.app'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('drivers.app');
+    expect(app.title).toEqual('Drivers.App');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('drivers.app app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('Drivers.App app is running!');
   });
 });
