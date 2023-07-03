@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DriversComponent } from './drivers.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { DriverService } from '../../services/driver.service';
+
 
 describe('DriversComponent', () => {
   let component: DriversComponent;
@@ -8,7 +10,9 @@ describe('DriversComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DriversComponent]
+      declarations: [DriversComponent],
+      imports: [HttpClientTestingModule], // Add HttpClientModule here
+      providers: [DriverService] // Include any other required providers
     });
     fixture = TestBed.createComponent(DriversComponent);
     component = fixture.componentInstance;

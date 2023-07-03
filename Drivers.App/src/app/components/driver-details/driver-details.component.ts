@@ -10,18 +10,26 @@ import { DriverService } from '../../services/driver.service';
 })
 export class DriverDetailsComponent implements OnInit {
   driver: Driver | undefined;
+  id: string | null;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private driverService: DriverService
-  ) { }
+  ) {
+    this.id = this.route.snapshot.paramMap.get('id');
+  }
 
   ngOnInit(): void {
-    const driverId = this.route.snapshot.params['id'];
-    this.driverService.getDriver(driverId).subscribe((driver: Driver) => {
-      this.driver = driver;
-    });
+    if (this.id) {
+      this.driverService.getDriver(this.id).subscribe((driver: Driver) => {
+        this.driver = driver;
+      });
+    }
+    //const driverId = this.route.snapshot.params['id'];
+    //this.driverService.getDriver(this.id).subscribe((driver: Driver) => {
+    //  this.driver = driver;
+    //});
   }
 
   goBack(): void {

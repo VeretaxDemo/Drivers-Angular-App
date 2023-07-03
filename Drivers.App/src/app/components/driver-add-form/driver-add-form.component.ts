@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Driver } from '../../models/driver';
@@ -11,6 +11,7 @@ import { DriverService } from '../../services/driver.service';
 })
 export class DriverAddFormComponent {
   driver: Driver = new Driver();
+  driverId: string | undefined;
   driverForm: FormGroup;
   isSubmitted: boolean = false;
   isUpdateMode: boolean = false;
