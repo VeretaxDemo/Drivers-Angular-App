@@ -38,8 +38,8 @@ describe('DriverService',
         it('should fetch drivers from API',
           () => {
             const mockDrivers: Driver[] = [
-              { id: 1, name: 'John Doe', number: 10, team: 'Team A' },
-              { id: 2, name: 'Jane Smith', number: 20, team: 'Team B' },
+              { id: '1', name: 'John Doe', number: 10, team: 'Team A' },
+              { id: '2', name: 'Jane Smith', number: 20, team: 'Team B' },
               // Additional drivers...
             ];
 
@@ -122,8 +122,8 @@ describe('DriverService',
       () => {
         it('should fetch a driver from API based on driverId',
           () => {
-            const driverId = 1;
-            const mockDriver: Driver = { id: 1, name: 'John Doe', number: 10, team: 'Team A' };
+            const driverId = '1';
+            const mockDriver: Driver = { id: '1', name: 'John Doe', number: 10, team: 'Team A' };
 
             service.getDriver(driverId).subscribe((driver) => {
               expect(driver).toEqual(mockDriver);
@@ -136,7 +136,7 @@ describe('DriverService',
 
         it('should handle error response when the API returns 404',
           () => {
-            const driverId = 1;
+            const driverId = "1";
             const errorResponse = new HttpErrorResponse({
               error: null,
               headers: new HttpHeaders(),
@@ -162,7 +162,7 @@ describe('DriverService',
 
         it('should handle error response when the API returns 500',
           () => {
-            const driverId = 1;
+            const driverId = "1";
             const errorResponse = new HttpErrorResponse({
               error: null,
               headers: new HttpHeaders(),

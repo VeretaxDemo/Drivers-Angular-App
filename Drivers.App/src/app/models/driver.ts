@@ -1,6 +1,6 @@
 export class Driver {
-  id?: number;
-  name = "";
+  id?: string = "";
+  name :string = "";
   number = 1;
-  team = "";
+  team : string = "";
 }
