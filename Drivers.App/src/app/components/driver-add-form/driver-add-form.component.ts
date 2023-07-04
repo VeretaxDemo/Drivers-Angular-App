@@ -11,10 +11,8 @@ import { DriverService } from '../../services/driver.service';
 })
 export class DriverAddFormComponent {
   driver: Driver = new Driver();
-  driverId: string | undefined;
   driverForm: FormGroup;
   isSubmitted: boolean = false;
-  isUpdateMode: boolean = false;
   errorMessage: string = '';
 
   constructor(
@@ -26,34 +24,6 @@ export class DriverAddFormComponent {
       number: new FormControl('', Validators.required),
       team: new FormControl('', Validators.required)
     });
-  }
-
-  ngOnInit() {
-    // Check if the component is in update mode
-    this.route.paramMap.subscribe((params) => {
-      const driverId = params.get('id');
-      if (driverId) {
-        this.isUpdateMode = true;
-        this.getDriver(driverId);
-      }
-    });
-  }
-
-  getDriver(driverId: string) {
-    this.driverService.getDriver(driverId).subscribe(
-      (driver) => {
-        this.driver = driver;
-        // Update the form fields with the driver's data
-        this.driverForm.patchValue({
-          name: driver.name,
-          number: driver.number,
-          team: driver.team
-        });
-      },
-      (error) => {
-        console.error('Failed to fetch driver:', error);
-      }
-    );
   }
 
   onSubmit() {
@@ -74,55 +44,28 @@ export class DriverAddFormComponent {
     // For example, you can send the form data to an API or perform any desired action
     console.log(this.driver); // Log the driver object to the console
 
-    if (this.isUpdateMode) {
-      // Handle the driver update logic here
-      this.updateDriver();
-    } else {
-      this.driverService.insertDriver(this.driver).subscribe(
-        (response) => {
-          // Handle successful response here
-          console.log('Driver inserted:', response);
+    this.driverService.insertDriver(this.driver).subscribe(
+      (response) => {
+        // Handle successful response here
+        console.log('Driver inserted:', response);
 
-          // Route to the driver-detail component with the inserted driver's ID
-          this.router.navigate(['/drivers', response.id]);
-        },
-        (error) => {
-          // Handle error response here
-          console.error('Failed to insert driver:', error);
+        // Route to the driver-detail component with the inserted driver's ID
+        this.router.navigate(['/drivers', response.id]);
+      },
+      (error) => {
+        // Handle error response here
+        console.error('Failed to insert driver:', error);
 
-          // Display error message to the user
-          if (error === 'Duplicate entry') {
-            this.errorMessage = 'Duplicate driver found. Please enter a different driver.';
-          } else {
-            this.errorMessage = 'An error occurred while inserting the driver. Please try again.';
-          }
+        // Display error message to the user
+        if (error === 'Duplicate entry') {
+          this.errorMessage = 'Duplicate driver found. Please enter a different driver.';
+        } else {
+          this.errorMessage = 'An error occurred while inserting the driver. Please try again.';
         }
-      );
-    }
+      }
+    );
+
   }
-
-  updateDriver() {
-      this.driverService.updateDriver(this.driver).subscribe(
-        (response) => {
-          // Handle successful response here
-          console.log('Driver updated:', response);
-
-          // Route to the driver-detail component with the updated driver's ID
-          this.router.navigate(['/drivers', response.id]);
-        },
-        (error) => {
-          // Handle error response here
-          console.error('Failed to update driver:', error);
-
-          // Display error message to the user
-          if (error === 'Duplicate entry') {
-            this.errorMessage = 'Duplicate driver found. Please enter a different driver.';
-          } else {
-            this.errorMessage = 'An error occurred while updating the driver. Please try again.';
-          }
-        }
-      );
-    }
 
   onCancel() {
     // Handle the cancel button click here
