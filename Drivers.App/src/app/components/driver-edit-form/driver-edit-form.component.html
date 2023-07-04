@@ -1,0 +1,40 @@
+<div class="form-container">
+  <h2>Edit Driver</h2>
+  <form (ngSubmit)="onSubmit()" [formGroup]="driverForm" class="driver-form">
+    <ng-container *ngIf="driverForm">
+      <!-- Display error message -->
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <!--<input type="text" id="name" name="name" [(ngModel)]="driver.name" required>-->
+        <input type="text" id="name" formControlName="name" required>
+        <div *ngIf="driverForm.get('name')?.invalid && driverForm.get('name')?.touched" class="error-message">
+          Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="number">Number:</label>
+        <!--<input type="text" id="number" name="number" [(ngModel)]="driver.number" required>-->
+        <input type="text" id="number" formControlName="number">
+        <div *ngIf="driverForm.get('number')?.invalid && driverForm.get('number')?.touched" class="error-message">
+          Number is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="team">Team:</label>
+        <!--<input type="text" id="team" name="team" [(ngModel)]="driver.team" required>-->
+        <input type="text" id="team" formControlName="team">
+        <div *ngIf="driverForm.get('team')?.invalid && driverForm.get('team')?.touched" class="error-message">
+          Team is required.
+        </div>
+      </div>
+      <div *ngIf="isSubmitted && driverForm?.invalid" class="error-message">
+        All fields are required.
+      </div>
+    <div class="button-group">
+      <button type="submit" class="update-button">Update Driver</button>
+      <button type="button" class="cancel-button" (click)="onCancel()">Cancel</button>
+    </div>
+    </ng-container>
+  </form>
+</div>

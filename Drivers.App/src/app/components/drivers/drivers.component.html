@@ -11,7 +11,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let driver of drivers" class="driver-row">
-        <td class="driver-cell"><a [routerLink]="['/drivers', driver.id]" (click)="showDriverDetails(driver)">View</a></td>
+        <td class="driver-cell"><a [routerLink]="['/edit-driver', driver.id]">Edit</a>&nbsp;
+        <a [routerLink]="['/drivers', driver.id]" (click)="showDriverDetails(driver)">View</a></td>
         <td class="driver-cell">{{ driver.name }}</td>
         <td class="driver-cell">{{ driver.number }} ({{ driver.team }})</td>
       </tr>

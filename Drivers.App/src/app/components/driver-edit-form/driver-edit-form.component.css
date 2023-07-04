@@ -1,0 +1,33 @@
+.form-container {
+  text-align: center;
+}
+
+/*.driver-form {
+  display: inline-block;
+  text-align: left;
+}*/
+
+
+.driver-form {
+  display: grid;
+  grid-template-columns: auto;
+  grid-gap: 10px;
+}
+
+/*.form-group {
+  margin-bottom: 10px;
+}*/
+
+.form-group label {
+  display: inline-block;
+  width: 80px;
+  margin-top: 5px;
+}
+
+.form-group input {
+  width: 200px;
+}
+
+.form-container .button-group {
+  margin-left: 55px;
+}
