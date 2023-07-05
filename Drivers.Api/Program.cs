@@ -2,11 +2,19 @@ using Drivers.Api.Configurations;
 using Drivers.Api.Models;
 using Drivers.Api.Repositories;
 using Drivers.Api.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
+using Serilog;
+using Serilog.Events;
+using Serilog.Formatting.Compact;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("MongoDatabase"));
@@ -28,6 +36,30 @@ builder.Services.AddSingleton<IMongoCollection<Driver>>(provider =>
 
 builder.Services.AddSingleton<IDriverRepository, DriverRepository>();
 builder.Services.AddSingleton<IDriverService, DriverService>();
+
+// Add Logging
+var configurationBuilder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json");
+
+var configuration = configurationBuilder.Build();
+
+using var log = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+    .ReadFrom.Configuration(configuration.GetSection("Serilog"))
+    .WriteTo.Console()
+    .WriteTo.File(".logs.txt", outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+    .CreateBootstrapLogger();
+
+builder.Services.AddSingleton<Serilog.ILogger>(log);
+
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext()
+    .WriteTo.Console(new RenderedCompactJsonFormatter())
+    .WriteTo.File(".logs.txt", outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}"));
 
 builder.Services.AddControllers();
 
@@ -55,6 +87,8 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddSingleton<DriverService>();
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 //app.UseCors(options =>
 //{

@@ -1,0 +1,88 @@
+2023-07-04 20:32:10.922 -04:00 [INF] Now listening on: https://localhost:7008
+2023-07-04 20:32:10.930 -04:00 [INF] Now listening on: http://localhost:5276
+2023-07-04 20:32:10.932 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2023-07-04 20:32:10.932 -04:00 [INF] Hosting environment: Development
+2023-07-04 20:32:10.932 -04:00 [INF] Content root path: C:\code\Samples\angular\ng14_crud_with_aspnet_6_webapi\FullStack.UI\DriversAngularAppFullStack\Drivers.Api
+2023-07-04 20:32:12.377 -04:00 [INF] Request starting HTTP/2 GET https://localhost:7008/swagger/index.html - -
+2023-07-04 20:32:12.560 -04:00 [INF] HTTP GET /swagger/index.html responded 200 in 157.9231 ms
+2023-07-04 20:32:12.566 -04:00 [INF] Request finished HTTP/2 GET https://localhost:7008/swagger/index.html - - - 200 - text/html;charset=utf-8 190.7875ms
+2023-07-04 20:32:12.669 -04:00 [INF] Request starting HTTP/2 GET https://localhost:7008/_framework/aspnetcore-browser-refresh.js - -
+2023-07-04 20:32:12.678 -04:00 [INF] Request finished HTTP/2 GET https://localhost:7008/_framework/aspnetcore-browser-refresh.js - - - 200 11992 application/javascript;+charset=utf-8 8.4505ms
+2023-07-04 20:32:12.756 -04:00 [INF] Request starting HTTP/2 GET https://localhost:7008/_vs/browserLink - -
+2023-07-04 20:32:12.803 -04:00 [INF] Request finished HTTP/2 GET https://localhost:7008/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 46.8362ms
+2023-07-04 20:32:12.888 -04:00 [INF] Request starting HTTP/2 GET https://localhost:7008/swagger/v1/swagger.json - -
+2023-07-04 20:32:12.968 -04:00 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 78.0202 ms
+2023-07-04 20:32:12.969 -04:00 [INF] Request finished HTTP/2 GET https://localhost:7008/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 80.1183ms
+2023-07-04 20:33:13.584 -04:00 [INF] Request starting HTTP/2 GET https://localhost:7008/api/Drivers - -
+2023-07-04 20:33:13.616 -04:00 [INF] CORS policy execution successful.
+2023-07-04 20:33:13.624 -04:00 [INF] Executing endpoint 'Drivers.Api.Controllers.DriversController.GetDrivers (Drivers.Api)'
+2023-07-04 20:33:13.656 -04:00 [INF] Route matched with {action = "GetDrivers", controller = "Drivers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDrivers() on controller Drivers.Api.Controllers.DriversController (Drivers.Api).
+2023-07-04 20:33:14.115 -04:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Drivers.Api.Models.Driver, Drivers.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-07-04 20:33:14.126 -04:00 [INF] Executed action Drivers.Api.Controllers.DriversController.GetDrivers (Drivers.Api) in 465.0163ms
+2023-07-04 20:33:14.127 -04:00 [INF] Executed endpoint 'Drivers.Api.Controllers.DriversController.GetDrivers (Drivers.Api)'
+2023-07-04 20:33:14.128 -04:00 [INF] HTTP GET /api/Drivers responded 200 in 541.7996 ms
+2023-07-04 20:33:14.129 -04:00 [INF] Request finished HTTP/2 GET https://localhost:7008/api/Drivers - - - 200 - application/json;+charset=utf-8 545.4303ms
+2023-07-04 20:33:27.530 -04:00 [INF] Request starting HTTP/2 GET https://localhost:7008/api/Drivers/64a4b956c37b36d41b97269b - -
+2023-07-04 20:33:27.534 -04:00 [INF] CORS policy execution successful.
+2023-07-04 20:33:27.535 -04:00 [INF] Executing endpoint 'Drivers.Api.Controllers.DriversController.GetById (Drivers.Api)'
+2023-07-04 20:33:27.548 -04:00 [INF] Route matched with {action = "GetById", controller = "Drivers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Drivers.Api.Models.Driver]] GetById(System.String) on controller Drivers.Api.Controllers.DriversController (Drivers.Api).
+2023-07-04 20:33:27.691 -04:00 [INF] Executing ObjectResult, writing value of type 'Drivers.Api.Models.Driver'.
+2023-07-04 20:33:27.693 -04:00 [INF] Executed action Drivers.Api.Controllers.DriversController.GetById (Drivers.Api) in 143.5426ms
+2023-07-04 20:33:27.695 -04:00 [INF] Executed endpoint 'Drivers.Api.Controllers.DriversController.GetById (Drivers.Api)'
+2023-07-04 20:33:27.696 -04:00 [INF] HTTP GET /api/Drivers/64a4b956c37b36d41b97269b responded 200 in 163.6322 ms
+2023-07-04 20:33:27.697 -04:00 [INF] Request finished HTTP/2 GET https://localhost:7008/api/Drivers/64a4b956c37b36d41b97269b - - - 200 - application/json;+charset=utf-8 166.3499ms
+2023-07-04 20:33:31.478 -04:00 [INF] Request starting HTTP/2 OPTIONS https://localhost:7008/api/Drivers/64a4b956c37b36d41b97269b - -
+2023-07-04 20:33:31.481 -04:00 [INF] CORS policy execution successful.
+2023-07-04 20:33:31.482 -04:00 [INF] HTTP OPTIONS /api/Drivers/64a4b956c37b36d41b97269b responded 204 in 2.4058 ms
+2023-07-04 20:33:31.483 -04:00 [INF] Request finished HTTP/2 OPTIONS https://localhost:7008/api/Drivers/64a4b956c37b36d41b97269b - - - 204 - - 5.2085ms
+2023-07-04 20:33:31.486 -04:00 [INF] Request starting HTTP/2 PUT https://localhost:7008/api/Drivers/64a4b956c37b36d41b97269b application/json 85
+2023-07-04 20:33:31.487 -04:00 [INF] CORS policy execution successful.
+2023-07-04 20:33:31.488 -04:00 [INF] Executing endpoint 'Drivers.Api.Controllers.DriversController.UpdateDriver (Drivers.Api)'
+2023-07-04 20:33:31.495 -04:00 [INF] Route matched with {action = "UpdateDriver", controller = "Drivers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateDriver(System.String, Drivers.Api.Models.Driver) on controller Drivers.Api.Controllers.DriversController (Drivers.Api).
+2023-07-04 20:33:43.937 -04:00 [INF] Driver updated successfully: {"Id":"64a4b956c37b36d41b97269b","Name":"Billy Gunny","Number":98,"Team":"Gunny Pro","$type":"Driver"}
+2023-07-04 20:33:43.950 -04:00 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2023-07-04 20:33:43.950 -04:00 [INF] Executed action Drivers.Api.Controllers.DriversController.UpdateDriver (Drivers.Api) in 12454.2166ms
+2023-07-04 20:33:43.951 -04:00 [INF] Executed endpoint 'Drivers.Api.Controllers.DriversController.UpdateDriver (Drivers.Api)'
+2023-07-04 20:33:43.952 -04:00 [INF] HTTP PUT /api/Drivers/64a4b956c37b36d41b97269b responded 204 in 12464.8937 ms
+2023-07-04 20:33:43.953 -04:00 [INF] Request finished HTTP/2 PUT https://localhost:7008/api/Drivers/64a4b956c37b36d41b97269b application/json 85 - 204 - - 12467.1185ms
+2023-07-04 20:33:43.974 -04:00 [INF] Request starting HTTP/2 GET https://localhost:7008/api/Drivers/64a4b956c37b36d41b97269b - -
+2023-07-04 20:33:43.974 -04:00 [INF] CORS policy execution successful.
+2023-07-04 20:33:43.975 -04:00 [INF] Executing endpoint 'Drivers.Api.Controllers.DriversController.GetById (Drivers.Api)'
+2023-07-04 20:33:43.975 -04:00 [INF] Route matched with {action = "GetById", controller = "Drivers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Drivers.Api.Models.Driver]] GetById(System.String) on controller Drivers.Api.Controllers.DriversController (Drivers.Api).
+2023-07-04 20:33:43.982 -04:00 [INF] Executing ObjectResult, writing value of type 'Drivers.Api.Models.Driver'.
+2023-07-04 20:33:43.983 -04:00 [INF] Executed action Drivers.Api.Controllers.DriversController.GetById (Drivers.Api) in 6.7516ms
+2023-07-04 20:33:43.984 -04:00 [INF] Executed endpoint 'Drivers.Api.Controllers.DriversController.GetById (Drivers.Api)'
+2023-07-04 20:33:43.985 -04:00 [INF] HTTP GET /api/Drivers/64a4b956c37b36d41b97269b responded 200 in 10.4869 ms
+2023-07-04 20:33:43.985 -04:00 [INF] Request finished HTTP/2 GET https://localhost:7008/api/Drivers/64a4b956c37b36d41b97269b - - - 200 - application/json;+charset=utf-8 11.8017ms
+2023-07-04 20:33:47.297 -04:00 [INF] Request starting HTTP/2 GET https://localhost:7008/api/Drivers - -
+2023-07-04 20:33:47.298 -04:00 [INF] CORS policy execution successful.
+2023-07-04 20:33:47.299 -04:00 [INF] Executing endpoint 'Drivers.Api.Controllers.DriversController.GetDrivers (Drivers.Api)'
+2023-07-04 20:33:47.300 -04:00 [INF] Route matched with {action = "GetDrivers", controller = "Drivers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDrivers() on controller Drivers.Api.Controllers.DriversController (Drivers.Api).
+2023-07-04 20:33:47.313 -04:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Drivers.Api.Models.Driver, Drivers.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2023-07-04 20:33:47.314 -04:00 [INF] Executed action Drivers.Api.Controllers.DriversController.GetDrivers (Drivers.Api) in 12.9257ms
+2023-07-04 20:33:47.314 -04:00 [INF] Executed endpoint 'Drivers.Api.Controllers.DriversController.GetDrivers (Drivers.Api)'
+2023-07-04 20:33:47.315 -04:00 [INF] HTTP GET /api/Drivers responded 200 in 16.7193 ms
+2023-07-04 20:33:47.316 -04:00 [INF] Request finished HTTP/2 GET https://localhost:7008/api/Drivers - - - 200 - application/json;+charset=utf-8 18.2825ms
+2023-07-04 20:33:57.809 -04:00 [INF] Request starting HTTP/2 OPTIONS https://localhost:7008/api/Drivers - -
+2023-07-04 20:33:57.815 -04:00 [INF] CORS policy execution successful.
+2023-07-04 20:33:57.816 -04:00 [INF] HTTP OPTIONS /api/Drivers responded 204 in 0.9609 ms
+2023-07-04 20:33:57.816 -04:00 [INF] Request finished HTTP/2 OPTIONS https://localhost:7008/api/Drivers - - - 204 - - 6.8241ms
+2023-07-04 20:33:57.825 -04:00 [INF] Request starting HTTP/2 POST https://localhost:7008/api/Drivers application/json 61
+2023-07-04 20:33:57.827 -04:00 [INF] CORS policy execution successful.
+2023-07-04 20:33:57.827 -04:00 [INF] Executing endpoint 'Drivers.Api.Controllers.DriversController.AddDriver (Drivers.Api)'
+2023-07-04 20:33:57.832 -04:00 [INF] Route matched with {action = "AddDriver", controller = "Drivers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Drivers.Api.Models.Driver]] AddDriver(Drivers.Api.Models.Driver) on controller Drivers.Api.Controllers.DriversController (Drivers.Api).
+2023-07-04 20:34:08.793 -04:00 [INF] Driver added successfully: {"Id":"64a4ba803f693784de004ada","Name":"Mark ubber","Number":93,"Team":"Uber One","$type":"Driver"}
+2023-07-04 20:34:08.795 -04:00 [INF] Executing CreatedAtActionResult, writing value of type 'Drivers.Api.Models.Driver'.
+2023-07-04 20:34:08.821 -04:00 [INF] Executed action Drivers.Api.Controllers.DriversController.AddDriver (Drivers.Api) in 10986.8627ms
+2023-07-04 20:34:08.821 -04:00 [INF] Executed endpoint 'Drivers.Api.Controllers.DriversController.AddDriver (Drivers.Api)'
+2023-07-04 20:34:08.822 -04:00 [INF] HTTP POST /api/Drivers responded 201 in 10994.7922 ms
+2023-07-04 20:34:08.822 -04:00 [INF] Request finished HTTP/2 POST https://localhost:7008/api/Drivers application/json 61 - 201 - application/json;+charset=utf-8 10997.2670ms
+2023-07-04 20:34:08.847 -04:00 [INF] Request starting HTTP/2 GET https://localhost:7008/api/Drivers/64a4ba803f693784de004ada - -
+2023-07-04 20:34:08.848 -04:00 [INF] CORS policy execution successful.
+2023-07-04 20:34:08.849 -04:00 [INF] Executing endpoint 'Drivers.Api.Controllers.DriversController.GetById (Drivers.Api)'
+2023-07-04 20:34:08.850 -04:00 [INF] Route matched with {action = "GetById", controller = "Drivers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Drivers.Api.Models.Driver]] GetById(System.String) on controller Drivers.Api.Controllers.DriversController (Drivers.Api).
+2023-07-04 20:34:08.858 -04:00 [INF] Executing ObjectResult, writing value of type 'Drivers.Api.Models.Driver'.
+2023-07-04 20:34:08.860 -04:00 [INF] Executed action Drivers.Api.Controllers.DriversController.GetById (Drivers.Api) in 7.4937ms
+2023-07-04 20:34:08.862 -04:00 [INF] Executed endpoint 'Drivers.Api.Controllers.DriversController.GetById (Drivers.Api)'
+2023-07-04 20:34:08.863 -04:00 [INF] HTTP GET /api/Drivers/64a4ba803f693784de004ada responded 200 in 14.6664 ms
+2023-07-04 20:34:08.863 -04:00 [INF] Request finished HTTP/2 GET https://localhost:7008/api/Drivers/64a4ba803f693784de004ada - - - 200 - application/json;+charset=utf-8 16.8249ms
